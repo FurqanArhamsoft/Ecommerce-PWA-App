@@ -2,10 +2,11 @@
 
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { ShoppingBag, Menu, X, Search, User, Heart } from 'lucide-react'
+import { ShoppingBag, Menu, X, Search, User, Heart, Download } from 'lucide-react'
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import SearchModal from './SearchModal'
+import useInstallPrompt from '../hooks/useInstallPrompt'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -13,6 +14,7 @@ export default function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const { state } = useCart()
   const { state: wishlistState } = useWishlist()
+  const { isInstallable, installApp } = useInstallPrompt()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -87,6 +89,18 @@ export default function Header() {
                 )}
               </Link>
 
+              {isInstallable && (
+                <button
+                  onClick={installApp}
+                  className={`hidden sm:flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-amber-500 to-yellow-500 text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg hover:from-amber-600 hover:to-yellow-600 ${isScrolled ? 'text-white' : 'text-white'
+                    }`}
+                >
+                  <Download className="w-4 h-4" />
+                  <span className="hidden md:inline">Install App</span>
+                  <span className="md:hidden">Install</span>
+                </button>
+              )}
+
               {/* Mobile Menu Button */}
               <button
                 className="lg:hidden"
@@ -109,7 +123,7 @@ export default function Header() {
                   <Link
                     key={item}
                     href={item === 'HOME' ? '/' : `/${item.toLowerCase()}`}
-                    className="text-gray-700 hover:text-amber-600 transition-colors font-semibold tracking-wide"
+                    className="px-4 text-gray-700 hover:text-amber-600 transition-colors font-semibold tracking-wide"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item}
@@ -117,18 +131,30 @@ export default function Header() {
                 ))}
                 <Link
                   href="/profile"
-                  className="text-gray-700 hover:text-amber-600 transition-colors font-semibold tracking-wide"
+                  className="px-4 text-gray-700 hover:text-amber-600 transition-colors font-semibold tracking-wide"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   PROFILE
                 </Link>
                 <Link
                   href="/wishlist"
-                  className="text-gray-700 hover:text-amber-600 transition-colors font-semibold tracking-wide"
+                  className="px-4 text-gray-700 hover:text-amber-600 transition-colors font-semibold tracking-wide"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   WISHLIST
                 </Link>
+                {isInstallable && (
+                  <button
+                    onClick={() => {
+                      installApp()
+                      setIsMenuOpen(false)
+                    }}
+                    className="flex items-center justify-center max-w-[200px] gap-2 px-4 py-2 bg-gradient-to-r from-amber-500 to-yellow-500 text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg hover:from-amber-600 hover:to-yellow-600"
+                  >
+                    <Download className="w-4 h-4" />
+                    Install App
+                  </button>
+                )}
               </nav>
             </div>
           )}
