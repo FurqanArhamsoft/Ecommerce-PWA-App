@@ -4,6 +4,7 @@ import './globals.css'
 import { CartProvider } from './context/CartContext'
 import { WishlistProvider } from './context/WishlistContext'
 import AOSInit from './components/AOSInit'
+import PWAUpdatePopup from './components/PWAUpdatePopup'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' })
@@ -30,6 +31,7 @@ export default function RootLayout({
             {children}
           </CartProvider>
         </WishlistProvider>
+        <PWAUpdatePopup />
       </body>
     </html>
   )

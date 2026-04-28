@@ -2,6 +2,20 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { Star, ShoppingCart, ArrowLeft, Heart, Share2, Truck, Shield, RotateCcw, Search, User } from "lucide-react"
 import Header from "../../components/Header"
+import dresses from "../../assets/images/dresses.jpg"
+import femaleClothes from "../../assets/images/female-clothes.jpg"
+import femaleFashion from "../../assets/images/female-fashion.jpg"
+import jacket from "../../assets/images/jacket.jpg"
+import bagLuxery from "../../assets/images/lather-bag-luxery.jpg"
+import bagRed from "../../assets/images/lather-bag-red.jpg"
+import bagBlack from "../../assets/images/lether-bag-black.jpg"
+import glassesBlack from "../../assets/images/glasses-black.jpg"
+import glassesFemale1 from "../../assets/images/glasses-female1.jpg"
+import glassesFemale2 from "../../assets/images/glasses-female2.jpg"
+import shoesBrown from "../../assets/images/shoes-brown.jpg"
+import shoesLuxery from "../../assets/images/shoes-luxery.jpg"
+import shoesLuxery2 from "../../assets/images/shoes-luxery2.jpg"
+import tShirt from "../../assets/images/t-shirt.jpg";
 
 const products = [
   {
@@ -11,11 +25,7 @@ const products = [
     originalPrice: 39.99,
     rating: 4.5,
     reviews: 128,
-    images: [
-      "/premium-cotton-t-shirt-front.png",
-      "/premium-cotton-t-shirt-back.png",
-      "/premium-cotton-t-shirt-detail.png",
-    ],
+    images: [tShirt, tShirt, tShirt],
     category: "MEN'S CLOTHING",
     inStock: true,
     stockCount: 15,
@@ -46,7 +56,7 @@ const products = [
     price: 79.99,
     rating: 4.8,
     reviews: 89,
-    images: ["/elegant-summer-dress-front.png", "/elegant-summer-dress-back.png", "/elegant-summer-dress-detail.png"],
+    images: [dresses, femaleClothes, femaleFashion],
     category: "WOMEN'S CLOTHING",
     inStock: true,
     stockCount: 8,
@@ -77,7 +87,7 @@ const products = [
     price: 89.99,
     rating: 4.3,
     reviews: 156,
-    images: ["/classic-denim-jacket.png", "/classic-denim-jacket-back.png", "/classic-denim-jacket-detail.png"],
+    images: [jacket, jacket, jacket],
     category: "MEN'S CLOTHING",
     inStock: true,
     stockCount: 12,
@@ -107,7 +117,7 @@ const products = [
     price: 149.99,
     rating: 4.6,
     reviews: 203,
-    images: ["/luxury-leather-handbag-front.png", "/placeholder-r6ltm.png", "/placeholder-407ti.png"],
+    images: [bagLuxery, bagRed, bagBlack],
     category: "ACCESSORIES",
     inStock: false,
     stockCount: 0,
@@ -138,7 +148,7 @@ const products = [
     price: 199.99,
     rating: 4.2,
     reviews: 94,
-    images: ["/designer-sunglasses-front.png", "/designer-sunglasses.png", "/designer-sunglasses.png"],
+    images: [glassesBlack, glassesFemale1, glassesFemale2],
     category: "ACCESSORIES",
     inStock: false,
     stockCount: 0,
@@ -169,7 +179,7 @@ const products = [
     price: 129.99,
     rating: 4.6,
     reviews: 203,
-    images: ["/casual-sneakers.png", "/casual-sneakers.png", "/casual-sneakers.png"],
+    images: [shoesBrown, shoesLuxery, shoesLuxery2],
     category: "SHOES",
     inStock: true,
     stockCount: 25,
@@ -229,7 +239,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
           <div className="space-y-4">
             <div className="aspect-square rounded-lg overflow-hidden bg-white">
               <img
-                src={product.images[0] || "/placeholder.svg"}
+                src={typeof product.images[0] === "string" ? product.images[0] : (product.images[0]?.src || "/placeholder.svg")}
                 alt={product.name}
                 className="w-full h-full object-cover"
               />
@@ -241,7 +251,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                   className="aspect-square rounded-lg overflow-hidden bg-white cursor-pointer hover:opacity-80 transition-opacity border"
                 >
                   <img
-                    src={image || "/placeholder.svg"}
+                    src={typeof image === "string" ? image : (image?.src || "/placeholder.svg")}
                     alt={`${product.name} view ${index + 2}`}
                     className="w-full h-full object-cover"
                   />
